@@ -1,11 +1,12 @@
-FROM node:17.9.0-slim
-LABEL maintainer="DeekshithSN"
-RUN useradd adminapi
+FROM node:18
+
 WORKDIR /app
-RUN chown adminapi /app /home
+
+COPY package*.json ./
+RUN npm install
+
 COPY . .
-RUN npm install 
-EXPOSE 1004
-USER adminapi
-ENV MONGO_URL=""
-CMD ["npm","start"]
+
+EXPOSE 5001
+
+CMD ["npm", "start"]
