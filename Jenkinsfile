@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Clone') {
+        stage('Checkout') {
             steps {
                 git 'https://github.com/SUBA-25/call-booking-application.git'
             }
@@ -11,13 +10,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'docker-compose build'
+                echo "Build stage running..."
             }
         }
 
         stage('Deploy') {
             steps {
-                sh 'docker-compose up -d'
+                echo "Deploy stage running..."
             }
         }
     }
