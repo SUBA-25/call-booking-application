@@ -1,44 +1,32 @@
-version: '2'
+version: "3"
 
 services:
-  mongo-db:
-    image: mongo
-    ports:
-      - 27017:27017
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=mongoadmin 
-      - MONGO_INITDB_ROOT_PASSWORD=secret 
-      - MONGO_INITDB_DATABASE=my_db
-
-  user-api:
-    build: ./user-api
-    ports:
-      - 1004:1004
-    environment:
-      - MONGO_URL=mongodb://mongoadmin:secret@machine-ip:27017/?retryWrites=true&w=majority
-      - ADMIN_EMAIL=admin@deekshithsn.co.in
-    depends_on:
-      - mongo-db
 
   admin-api:
-    build: ./admin-api
+    image: suba2502/admin-api
     ports:
-      - 1005:1004
-    environment:
-      - MONGO_URL=mongodb://mongoadmin:secret@machine-ip:27017/?retryWrites=true&w=majority
+      - "5001:5001"
     depends_on:
-      - mongo-db
+      - db
 
-  user-ui:
-    build: ./user-ui
+  user-api:
+    image: suba2502/user-api
     ports:
-      - 3000:3000 
+      - "5002:5002"
     depends_on:
-      - user-api
+      - db
 
   admin-ui:
-    build: ./admin-ui
+    image: suba2502/admin-ui
     ports:
-      - 3001:3000
-    depends_on:
-      - admin-api
+      - "3001:3001"
+
+  user-ui:
+    image: suba2502/user-ui
+    ports:
+      - "3000:3000"
+
+  db:
+    image: mongo
+    ports:
+      - "27017:27017"
