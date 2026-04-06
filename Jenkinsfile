@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/SUBA-25/call-booking-application.git'
+                git branch: 'development', url: 'https://github.com/SUBA-25/call-booking-application.git'
             }
         }
 
