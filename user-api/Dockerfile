@@ -1,12 +1,12 @@
-FROM node:17.9.0-slim
-LABEL maintainer="DeekshithSN"
-RUN useradd userapi
+FROM node:18
+
 WORKDIR /app
-RUN chown userapi /app /home
+
+COPY package*.json ./
+RUN npm install
+
 COPY . .
-RUN npm install 
-EXPOSE 1004
-USER userapi
-ENV MONGO_URL=""
-ENV ADMIN_EMAIL=""
-CMD ["npm","start"]
+
+EXPOSE 5002
+
+CMD ["npm", "start"]
